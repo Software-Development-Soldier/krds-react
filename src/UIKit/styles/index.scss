@@ -1,0 +1,18 @@
+/* Main CSS Entry Point */
+
+/* Override path variable for assets (relative to this file) */
+$url: "../../../resources";
+
+
+/* Theme Variables (CSS Variables Mapped to Tokens) */
+@import "../../../resources/css/token/krds_tokens.css";
+
+/* Theme Variables (CSS Variables Mapped to Tokens) */
+@import "../../../resources/css/token/theme.css";
+
+/* Global Common Styles & Reset */
+/* Note: common.scss imports krds_tokens.css */
+@import "../../../resources/scss/common/common.scss";
+
+/* Component Styles */
+@import "../../../resources/scss/component/component.scss";
