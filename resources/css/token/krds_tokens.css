@@ -1,4 +1,3 @@
-
 @charset "utf-8";
 
 /* Do not edit directly */
@@ -222,7 +221,7 @@
   --krds-color-high-contrast-graphic-50: #61758f;
   --krds-color-high-contrast-graphic-70: #39506c;
   --krds-color-high-contrast-graphic-90: #223a58;
-  --krds-typo-font-type: Pretendard GOV;
+  --krds-typo-font-type: "Pretendard GOV";
   --krds-typo-font-weight-regular: Regular;
   --krds-typo-font-weight-bold: Bold;
   --krds-typo-letter-spacing-0: 0rem;
