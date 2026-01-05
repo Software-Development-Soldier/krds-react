@@ -15,9 +15,7 @@ Follow these steps to solve a GitHub issue from start to finish:
 3. **Solve the Issue**:
    - **Research**: If the solution isn't immediate, use `grep_search` or `find_by_name` to understand relevant parts of the codebase.
    - **Implement**: Write the necessary code or documentation to address the issue.
-   - **Test**: Verify your changes by running existing tests and adding new ones where appropriate.
-     - Backend: Use `uv run pytest` in the `backend/` directory.
-     - Frontend: Use `npm test` in the `frontend/` directory.
+    - **Test**: Verify your changes by running `npm run build` or relevant examples to ensure the UIKit components work as expected.
    - **Propose**: If the solution involves multiple complex steps, outline them for the user first.
    - **Commit**: Commit your changes with a clear message referencing the issue (e.g., `docs: add documentation (#<number>)`).
 
