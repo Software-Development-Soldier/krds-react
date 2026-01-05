@@ -1,22 +1,40 @@
 {
-  "name": "krds-uiux",
-  "version": "1.0.6",
+  "name": "krds-react",
+  "version": "0.0.1",
   "description": "KRDS(Korea Responsive Design System)는 대한민국 디지털 정부를 위한 디자인 시스템입니다. HTML 컴포넌트를 통해 반응형, 접근성을 갖춘 UI/UX를 빠르고 일관되게 개발할 수 있도록 지원합니다. This system ensures consistency and reusability for public sector digital services in Korea.",
-  "scripts": {},
-  "keywords": [
-    "KRDS",
-    "Korea design system",
-    "디지털 정부",
-    "정부 디자인 시스템",
-    "HTML components",
-    "UIUX",
-    "accessible UI",
-    "responsive design",
-    "공공 디자인",
-    "디자인 시스템",
-    "web components",
-    "디지털 서비스"
+  "main": "./dist/krds-react.umd.js",
+  "module": "./dist/krds-react.es.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/krds-react.es.js",
+      "require": "./dist/krds-react.umd.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./dist/style.css": "./dist/style.css"
+  },
+  "files": [
+    "dist"
   ],
-  "author": "krds",
-  "license": "ISC"
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc && vite build",
+    "preview": "vite preview"
+  },
+  "peerDependencies": {
+    "react": ">=16.8.0",
+    "react-dom": ">=16.8.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "@types/react": "^18.0.0",
+    "@types/react-dom": "^18.0.0",
+    "@vitejs/plugin-react": "^4.0.0",
+    "sass": "^1.69.0",
+    "typescript": "^5.0.0",
+    "vite": "^5.0.0",
+    "vite-plugin-dts": "^3.0.0"
+  },
+  "author": "Software-Development-Soldier",
+  "license": "MIT"
 }
