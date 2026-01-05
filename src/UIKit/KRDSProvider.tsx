@@ -1,14 +1,8 @@
 import React, { ReactNode, useEffect, useState, useCallback } from 'react';
 import { ThemeContext, ThemeMode } from './hooks/useTheme';
 
-// Import theme tokens mapping
-import '../../resources/css/token/theme.css';
-
-// Import global styles
-// common.scss contains tokens, reset, and base styles
-import '../../resources/scss/common/common.scss';
-// component.scss contains all component-specific styles
-import '../../resources/scss/component/component.scss';
+// Import unified styles
+import './styles/index.scss';
 
 export interface KRDSProviderProps {
     children: ReactNode;

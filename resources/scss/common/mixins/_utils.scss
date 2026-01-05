@@ -28,7 +28,7 @@
 
 //pseudo element setting
 @mixin pseudo($c: null) {
-	content: "" +$c+"";
+	content: "" + $c + "";
 }
 
 //flex layout
