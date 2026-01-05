@@ -1,6 +1,7 @@
 // Core
 export * from './KRDSProvider';
 export * from './hooks/useKRDSInit';
+export * from './hooks/useTheme';
 
 // Components
 export * from './components/Accordion';
