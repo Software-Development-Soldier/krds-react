@@ -1,16 +1,28 @@
-import { useEffect } from 'react';
+import { useEffect, RefObject } from 'react';
 
 declare global {
     interface Window {
-        krds_accordion?: { init: () => void };
-        krds_tab?: { init: () => void };
-        krds_modal?: { init: () => void };
+        krds_accordion?: {
+            init: (container?: HTMLElement | Document) => void;
+            destroy?: (container?: HTMLElement | Document) => void;
+        };
+        krds_tab?: {
+            init: (container?: HTMLElement | Document) => void;
+            destroy?: (container?: HTMLElement | Document) => void;
+        };
+        krds_modal?: {
+            init: (container?: HTMLElement | Document) => void;
+            destroy?: (container?: HTMLElement | Document) => void;
+        };
     }
 }
 
 export type KRDSComponentName = 'accordion' | 'tab' | 'modal';
 
-export const useKRDSInit = (componentNames: KRDSComponentName | KRDSComponentName[]) => {
+export const useKRDSInit = (
+    componentNames: KRDSComponentName | KRDSComponentName[],
+    ref?: RefObject<HTMLElement>
+) => {
     useEffect(() => {
         const names = Array.isArray(componentNames) ? componentNames : [componentNames];
         let retryCount = 0;
@@ -26,14 +38,14 @@ export const useKRDSInit = (componentNames: KRDSComponentName | KRDSComponentNam
             });
 
             if (allAvailable) {
-                console.log(`[KRDS] Initializing: ${names.join(', ')}`);
+                const container = ref?.current || document;
+                console.log(`[KRDS] Initializing: ${names.join(', ')} in ${container === document ? 'document' : 'scoped container'}`);
+
                 names.forEach(name => {
-                    if (name === 'accordion' && window.krds_accordion) {
-                        window.krds_accordion.init();
-                    } else if (name === 'tab' && window.krds_tab) {
-                        window.krds_tab.init();
-                    } else if (name === 'modal' && window.krds_modal) {
-                        window.krds_modal.init();
+                    const globalName = `krds_${name}` as keyof Window;
+                    const component = window[globalName] as any;
+                    if (component && typeof component.init === 'function') {
+                        component.init(container);
                     }
                 });
             } else if (retryCount < maxRetries) {
@@ -44,9 +56,20 @@ export const useKRDSInit = (componentNames: KRDSComponentName | KRDSComponentNam
             }
         };
 
-        // Initial call
+        // Delay to ensure React has finished rendering the DOM
         const timer = setTimeout(init, 0);
 
-        return () => clearTimeout(timer);
-    }, [componentNames]);
+        return () => {
+            clearTimeout(timer);
+            const container = ref?.current || document;
+            names.forEach(name => {
+                const globalName = `krds_${name}` as keyof Window;
+                const component = window[globalName] as any;
+                if (component && typeof component.destroy === 'function') {
+                    console.log(`[KRDS] Destroying: ${name}`);
+                    component.destroy(container);
+                }
+            });
+        };
+    }, [componentNames, ref]);
 };
