@@ -1,0 +1,32 @@
+@charset "utf-8";
+
+/* Pretendard GOV Font */
+@font-face {
+    font-family: 'Pretendard GOV';
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+    src: local('Pretendard GOV Bold'),
+    url('#{$url}/fonts/PretendardGOV-Bold.woff2') format('woff2'),
+    url('#{$url}/fonts/PretendardGOV-Bold.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Pretendard GOV';
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+    src: local('Pretendard GOV Medium'),
+    url('#{$url}/fonts/PretendardGOV-Medium.woff2') format('woff2'),
+    url('#{$url}/fonts/PretendardGOV-Medium.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Pretendard GOV';
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+    src: local('Pretendard GOV Regular'),
+    url('#{$url}/fonts/PretendardGOV-Regular.woff2') format('woff2'),
+    url('#{$url}/fonts/PretendardGOV-Regular.woff') format('woff');
+}
