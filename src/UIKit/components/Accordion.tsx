@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useRef } from 'react';
 import { useKRDSInit } from '../hooks/useKRDSInit';
 
 export interface AccordionItemProps {
@@ -44,10 +44,11 @@ export interface AccordionProps {
 }
 
 export const Accordion: React.FC<AccordionProps> = ({ children, className = '' }) => {
-    useKRDSInit('accordion');
+    const containerRef = useRef<HTMLDivElement>(null);
+    useKRDSInit('accordion', containerRef);
 
     return (
-        <div className={`krds-accordion ${className}`}>
+        <div ref={containerRef} className={`krds-accordion ${className}`}>
             {children}
         </div>
     );

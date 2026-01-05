@@ -365,8 +365,8 @@ const krds_mainMenuMobile = {
       const gnbBody = document.querySelector(".gnb-body");
       gnbBody.style.scrollBehavior = "auto";
       gnbBody.scrollTop = top
-    } 
-    
+    }
+
     setTimeout(() => {
       mobileGnb.classList.add("is-backdrop");
       mobileGnb.classList.add("is-open");
@@ -382,7 +382,7 @@ const krds_mainMenuMobile = {
       document.querySelector("#krds-header .header-in").setAttribute("inert", "");
       document.getElementById("container")?.setAttribute("inert", "");
       document.getElementById("footer")?.setAttribute("inert", "");
-      
+
       // 포커스 트랩 설정
       common.focusTrap(mobileGnb);
     });
@@ -402,13 +402,13 @@ const krds_mainMenuMobile = {
     document.querySelector("#krds-header .header-in").removeAttribute("inert");
     document.getElementById("container")?.removeAttribute("inert");
     document.getElementById("footer")?.removeAttribute("inert");
-    
+
     // transition 종료후 실행
     mobileGnb.addEventListener("transitionend", function onTransitionEnd() {
       openGnb.focus();
       mobileGnb.removeEventListener("transitionend", onTransitionEnd);
     });
-    
+
     setTimeout(() => {
       mobileGnb.style.display = "none";
       document.body.classList.remove("is-gnb-mobile");
@@ -601,14 +601,14 @@ const krds_sideNavigation = {
     toggleButtons.forEach((toggleButton) => {
       toggleButton.addEventListener("click", () => {
         const expand = toggleButton.getAttribute("aria-expanded") !== "true";
-        
+
         //this.toggleMenu(toggleButton, expand); 클릭 시 해당 버튼만 활성화 상태로 변경되어 해당 이벤트 주석처리.
         //this.closeSiblingMenus(toggleButton);  클릭 시 해당 버튼만 활성화 상태로 변경되어 해당 이벤트 주석처리.
         this.setActiveNav(toggleButton, expand);
       });
     });
   },
-  setActiveNav(toggleButton, expand){
+  setActiveNav(toggleButton, expand) {
     const parentListItem = toggleButton.closest("li");
     toggleButton.setAttribute('aria-expanded', expand ? 'true' : 'false');
     parentListItem.classList.toggle('active', expand);
@@ -678,7 +678,7 @@ const krds_sideNavigation = {
     const siblingButtons = parentListItem.parentNode.querySelectorAll(":scope > li > .lnb-toggle");
     siblingButtons.forEach((siblingButton) => {
       if (siblingButton !== toggleButton) {
-        this.toggleMenu(siblingButton, false); 
+        this.toggleMenu(siblingButton, false);
       }
     });
   },
@@ -703,8 +703,8 @@ const krds_sideNavigation = {
 /*** * krds_tab * ***/
 const krds_tab = {
   layerTabArea: null,
-  init() {
-    this.layerTabArea = document.querySelectorAll(".krds-tab-area.layer");
+  init(container = document) {
+    this.layerTabArea = container.querySelectorAll(".krds-tab-area.layer");
 
     if (!this.layerTabArea.length) return;
 
@@ -793,8 +793,8 @@ const krds_tab = {
 const krds_accordion = {
   accordionButtons: null,
   accordionHandlers: new Map(),
-  init() {
-    this.accordionButtons = document.querySelectorAll(".btn-accordion");
+  init(container = document) {
+    this.accordionButtons = container.querySelectorAll(".btn-accordion");
 
     if (!this.accordionButtons.length) return;
 
@@ -856,6 +856,16 @@ const krds_accordion = {
     accordionContent.setAttribute("id", `accordionCollapse-id-${uniqueIdx}`);
     accordionContent.setAttribute("aria-labelledby", `accordionHeader-id-${uniqueIdx}`);
   },
+  destroy(container = document) {
+    const buttons = container.querySelectorAll(".btn-accordion");
+    buttons.forEach((button) => {
+      const handler = this.accordionHandlers.get(button);
+      if (handler) {
+        button.removeEventListener("click", handler);
+        this.accordionHandlers.delete(button);
+      }
+    });
+  },
 };
 
 /*** * krds_modal * ***/
@@ -863,9 +873,9 @@ const krds_modal = {
   modalOpenTriggers: null,
   modalCloseTriggers: null,
   outsideClickHandlers: {},
-  init() {
-    this.modalOpenTriggers = document.querySelectorAll(".open-modal");
-    this.modalCloseTriggers = document.querySelectorAll(".close-modal");
+  init(container = document) {
+    this.modalOpenTriggers = container.querySelectorAll(".open-modal");
+    this.modalCloseTriggers = container.querySelectorAll(".close-modal");
 
     if (!this.modalOpenTriggers.length || !this.modalCloseTriggers.length) return;
 
@@ -925,7 +935,7 @@ const krds_modal = {
     setTimeout(() => {
       modalElement.classList.add("in");
     }, 150);
-    
+
     //열린 팝업창 포커스
     const focusables = modalElement.querySelectorAll(`a, button, [tabindex="0"], input, textarea, select`);
     setTimeout(() => {
@@ -986,7 +996,7 @@ const krds_modal = {
     if (openModals.length < 2) {
       document.querySelector("body").classList.remove("scroll-no");
     }
-    
+
     // inert 설정
     document.getElementById("wrap")?.removeAttribute("inert");
 
@@ -1102,11 +1112,11 @@ const krds_contextualHelp = {
   setupFocusOutEvent() {
     document.addEventListener("click", (event) => {
       const clickedInsideTooltip = event.target.closest(".tooltip-action");
-      if (!clickedInsideTooltip ) {
+      if (!clickedInsideTooltip) {
         this.closeAllTooltips();
       } else {
         const FocusPopover = clickedInsideTooltip.querySelector('.tooltip-close');
-        FocusPopover.addEventListener('focusout', ()=>{
+        FocusPopover.addEventListener('focusout', () => {
           this.closeAllTooltips();
           clickedInsideTooltip.querySelector(".tooltip-btn")?.focus();
         });
@@ -1612,13 +1622,13 @@ const krds_calendar = {
               otherBtn.removeAttribute("aria-pressed");
             });
             btn.closest("td").classList.add("period", "start", "end");
-            btn.setAttribute("aria-pressed", "true");  
+            btn.setAttribute("aria-pressed", "true");
           });
           // action
           actionBtns.forEach((action) => {
             accReset(action, btn, "single");
           });
-        } else {         
+        } else {
           btn.addEventListener("click", () => {
             const currentTd = btn.closest("td");
             // 현재 td의 날짜
@@ -2321,7 +2331,7 @@ const krds_chkBox = {
     const formChip = document.querySelectorAll(".krds-form-chip");
 
     if (!formChip.length) return;
-    
+
     formChip.forEach((chip) => {
       const input = chip.querySelector("input");
       if (!input) return;
