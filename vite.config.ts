@@ -11,6 +11,14 @@ export default defineConfig({
             include: ['src/UIKit'],
         }),
     ],
+    css: {
+        preprocessorOptions: {
+            scss: {
+                api: 'modern',
+                silenceDeprecations: ['import'],
+            },
+        },
+    },
     build: {
         lib: {
             entry: resolve(__dirname, 'src/UIKit/index.ts'),
