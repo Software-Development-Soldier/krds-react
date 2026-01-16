@@ -13,7 +13,7 @@ export default defineConfig({
         },
     },
     root: resolve(__dirname),
-    publicDir: resolve(__dirname, '../../'), // Serve root assets like resources/js
+    // publicDir: resolve(__dirname, '../../'), // Removed to avoid recursive copy issues. We now use local 'public' folder.
     server: {
         port: 3000,
     },
